@@ -8,7 +8,6 @@ import AddBook from './components/AddBook';
 
 
 class App extends Component {
-
   constructor(props) {
     super(props);
 
@@ -31,16 +30,16 @@ class App extends Component {
     this.setState({
       books: this.state.books
     });
+  }
 
-  onAuthorCreated(author); {
+  onAuthorCreated(author) {
     this.state.author.push(author);
     this.setState({
       author: this.state.author
     });
-
   }
 
-  render(); {
+  render() {
     return (
       <div className="container card mt-4 p-4">
         <div>
@@ -49,8 +48,8 @@ class App extends Component {
 
         <hr />
 
-        <AddBook 
-          createBook={(book) => this.onBookCreated(book)} 
+        <AddBook
+          createBook={(book) => this.onBookCreated(book)}
           createAuthor={(author) => this.onAuthorCreated(author)}
         />
 
@@ -59,7 +58,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 export default App;
