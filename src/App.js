@@ -11,33 +11,42 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      books: []
-    };
+    let storedBooks = localStorage.getItem('books') ? localStorage.getItem('books') : '[]';
+    const books = JSON.parse(storedBooks)
 
-    this.state = {
-      author: []
-    };
+    this.state = { books: books };
 
-    this.state = {
-      isbn: []
-    };
+    // this.state = {
+    //   author: []
+    // };
+
+    // this.state = {
+    //   isbn: []
+    // };
 
   }
 
   onBookCreated(book) {
     this.state.books.push(book);
-    this.setState({
-      books: this.state.books
-    });
+    this.saveBooks(this.state.books);
   }
 
-  onAuthorCreated(author) {
-    this.state.author.push(author);
-    this.setState({
-      author: this.state.author
-    });
+  onBookRemoved(bookId) {
+    const updatedBooks = this.state.books.filter(book => book.id !== bookId);
+    this.saveBooks(updatedBooks);
   }
+
+  saveBooks(booksArr) {
+    this.setState({ books: booksArr }); 
+    localStorage.setItem('books', JSON.stringify(booksArr));
+  }
+
+  // onAuthorCreated(author) {
+  //   this.state.author.push(author);
+  //   this.setState({
+  //     author: this.state.author
+  //   });
+  // }
 
   render() {
     return (
@@ -50,10 +59,14 @@ class App extends Component {
 
         <AddBook
           createBook={(book) => this.onBookCreated(book)}
-          createAuthor={(author) => this.onAuthorCreated(author)}
         />
 
-        <BookTable />
+        {/* createAuthor={(author) => this.onAuthorCreated(author)} */}
+
+        <BookTable
+          books={this.state.books}
+          bookRemoved={(bookId) => this.onBookRemoved(bookId)}
+        />
 
       </div>
     );

@@ -1,9 +1,11 @@
 
 
 export default class Book {
-    constructor(name, completed) {
+    constructor(name, author, isbn) {
         this.id = new Date().getTime();
         this.name = name;
-        this.completed = completed;
+        this.author = author;
+        this.isbn = isbn;
+        // this.completed = completed;
     }
 }
